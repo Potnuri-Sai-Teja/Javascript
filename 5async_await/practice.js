@@ -175,3 +175,16 @@ var data = [{
 
 
 
+
+
+
+    a={
+        id:1,
+        name:"tt"
+    }
+    b={
+
+        age:15
+    }
+
+        a.name.bind(b)
