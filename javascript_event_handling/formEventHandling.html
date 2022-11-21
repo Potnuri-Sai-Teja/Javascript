@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Event Handling</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        .formContainer{
+
+            border: 2px dotted black;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px;
+            margin: 10px;
+        }
+        .invalid { border: 2px solid red; }
+        .valid { border: 2px solid blue; }
+          #error { color: red } 
+        .error1{ color: red }
+    </style>
+</head>
+<body>
+    
+        <div class="formContainer">
+            <form action="#" name="myform">
+                <div>
+                    <label for="firstName">First Name</label>
+                    <input type="text" name="firstName" id="firstName"  value="MyfirstName" required/>
+                </div>
+                <div>
+                    <label for="lastName">Last  Name</label>
+                    <input type="text" id="lastName"  required/>
+                </div>
+                <div>
+                    <label for="emailId">Email Id</label>
+                    <input type="email" id="emailId"  required/>
+                </div>
+                <div>
+                    <label for="language">Language Select</label>
+                    
+                        <div class="languageSelect">
+                            <input type="radio" name="language" id="teluguLanguage"/>
+                            <label>Telugu</label>
+                            <input type="radio" name="language" id="hindiLanguage"/>
+                            <label>Hindi</label>
+                            <input type="radio" name="language" id="englishLanguage"/>
+                            <label>English</label>
+                        </div>
+                    
+                    
+                </div>
+                
+                <div>
+                        <label for="stateLabel">Select State</label> 
+                        
+                        <select name="stateselection" id="stateselected">
+                            <option>select</option>
+                            <option value="Andhara Pradesh">Andhra Pradesh</option>
+                            <option value="Telangana">Telangana</option>
+                            <option value="Odisa">Odisa</option>
+                            <option value="Gujarat">Gujarat</option>
+                        </select>
+
+
+                </div>
+            
+            
+                <div>
+                    <input type="button" value="submit"/>
+                    <input type="reset" value="reset"/>
+                </div>
+                
+
+            </form>
+        </div>
+
+        <div class="formContainer">
+            <form action="#" name="myform2" id="form2">
+                <div>
+                    <label for="firstName">Email Id</label>
+                    <input type="email" name="emailId1" id="emailId1"  value="MyfirstName" required/>
+                    <div id="error"></div>
+                </div>
+                <div>
+                    <label for="lastName">Password</label>
+                    <input type="password" id="password"  required/>
+
+                </div>
+                
+                <div>
+                    <input type="button" value="submit"/>
+                   
+                </div>
+                
+
+            </form>
+        </div>
+
+
+        <div class="formContainer">
+                <button type="button" onclick="cratingWindow()">Create Window</button>
+                <button type="button" onclick="focusingWindow()">Focus</button>
+                <button type="button" onclick="blurWindow()">blur</button>
+
+        </div>
+
+
+        <!-- On change event  -->
+        <div class="formContainer" style="flex-direction:column ;">
+            <h2>This is Working with OnChange Function</h2>
+            <input type="text" id="onchangetextbox" onchange="alert(this.value)"/>
+            <input type="button" value="Submit"/>
+            <select name="stateselection" id="stateselected1" onchange="alert(this.value)">
+                <option>select</option>
+                <option value="Andhara Pradesh">Andhra Pradesh</option>
+                <option value="Telangana">Telangana</option>
+                <option value="Odisa">Odisa</option>
+                <option value="Gujarat">Gujarat</option>
+            </select>
+
+        </div>
+
+
+
+        <!-- oninput Event-->
+        <div class="formContainer" style="flex-direction:column ;">
+                <h3>This is example for oninput event taking input from above drop down menu</h3>
+                <p id="inputEvent"></p>
+        </div>
+
+        <!---Cut Copy Paste Examples -->
+
+        <div class="formContainer" style="flex-direction:column ;">
+
+                <h2> This Is Examples for cut and copy and paste disable</h2>
+                <div style="display:flex;">
+                    <label for="mytextarea">Enter Your Faviourate Story:</label>
+                    <textarea name="mytextarea"  id="eventtestarea" cols="30" rows="10" onCut="return cutNotAllowed()"  onPaste="return pasteNotAllowed(event)" ></textarea>
+                    
+                </div>
+                <p id="textarearesrictions"></p>
+        </div>
+
+
+        <!-- Email validation-->
+        <div>
+                <h2>Email validation</h2>
+                <form action="#">
+                    <fieldset>
+                        <legend>Email Validation in HTML</legend>
+                        <label for="Email">Email* <br>
+                        <input pattern='^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$' required type="text" id="Email"><br> <br>
+                        <input type="submit">
+                    </fieldset>
+                </form>
+        </div>
+
+    
+ <script defer>
+
+
+        let eventtestarea = document.querySelector("#eventtestarea");
+
+        eventtestarea.oncopy = function(event){
+            alert(event.type +"  "+ document.getSelection());
+            event.preventDefault();
+        }
+
+
+                
+    // copy and paste and cut examples
+    
+    function pasteNotAllowed(event){
+        
+        alert(event.type+"   "+ event.clipboardData.getData('text/plain'))
+        alert("Your Not Allowed To Paste the Data")
+
+            return false;
+
+    }
+    function cutNotAllowed(){
+        
+                 eventtestarea = document.querySelector("#eventtestarea");
+                let textarearesrictions = document.querySelector("#textarearesrictions");
+                
+            setTimeout(()=> { 
+                textarearesrictions.textContent="Your Not Allowed To cut the text";
+                textarearesrictions.classList.add("error1");
+                console.log(textarearesrictions.classList)
+
+            },0);
+            setTimeout(()=> 
+                    {
+                        textarearesrictions.innerHTML="";
+                        textarearesrictions.classList.remove("error1");
+                    },2000)
+            return false;
+    }
+
+    // Input Event
+    console.log(stateselected1.value)
+   
+
+    stateselected1.oninput=function(){
+
+        inputEvent.innerHTML= stateselected1.value
+    }
+
+
+    // focus and blur example
+
+
+
+
+        let myFormData = document.querySelector("#form2");
+
+        
+              
+         myFormData.addEventListener('focus',function(event){
+
+                console.log(event.target)
+              //  event.target.style.background="lightgreen"
+                 if(myFormData.elements.emailId1.value.includes('@')){
+                    error.innerHTML = '';
+                    myFormData.elements.emailId1.classList.remove("invalid")
+                    
+                    myFormData.elements.emailId1.style ="border-color = blue"
+                }
+                
+        },true)
+
+
+        myFormData.addEventListener('blur',function(event){
+            console.log(event.target+" has been blur")
+            //event.target.style.background ="";
+            if(!myFormData.elements.emailId1.value.includes('@')){
+                    error.innerHTML = 'Please enter a correct email.'
+                    
+                    myFormData.elements.emailId1.classList.add("invalid")
+            }
+        },true)
+
+
+    // focus and blur example2
+
+
+                let newWindow;
+            function cratingWindow(){
+                    newWindow = window.open("","_blank","width=300,height=200")
+            }
+            function focusingWindow(){
+                newWindow.focus();
+            }
+            function blurWindow(){
+                newWindow.blur();
+            }
+
+
+
+
+
+        let formData = document.forms;
+            console.log(formData)
+            //console.dir(formData)
+           // console.log(formData[0])
+          //  console.log(formData.myform2)
+        //   console.log(formData[1].elements.password) get or call single element by its id
+        //finding the value of particular element in the form
+            console.log(formData[0].elements.firstName.value)
+            console.log(formData[0].elements.language)
+            formData[0].elements.language[0].checked = true
+
+            console.log(formData[0].elements.stateselection)
+            console.log(formData[0].elements.stateselection.options)
+            //formData[0].elements.stateselection.options[1].selected= true;
+            formData[0].elements.stateselection.selectedIndex= 1;
+          //  formData[0].elements.stateselection.value="No Value Selected" // it makes the selection item value will be same if you select anything
+
+
+            let newOption = new Option("Orissa","Orissa",false,false)
+
+            formData[0].elements.stateselection.append(newOption);
+            
+
+    
+
+
+
+
+ </script>       
+
+
+</body>
+</html>

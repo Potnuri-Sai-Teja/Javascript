@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mouse Drag ANd Drop </title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body{
+            background-color: skyblue;
+        }
+        .whitebox{
+            border: 2px blue dotted;
+            width: 150px;
+            height:130px;
+            background-color: white;
+            margin: 10px;
+            display: inline-block;
+        }
+        .imageBox{
+
+                background-image: url("climate.png");
+                background-size: cover;
+                position: relative;
+                width: 145px;
+                height: 125px; 
+            
+        }
+        .hide{
+            display: none;
+        }
+        .entered{
+            background: grey;
+        }
+        
+    </style>
+</head>
+<body>
+    <div class="whitebox">
+            <div class="imageBox" draggable="true"></div>
+    </div>
+
+    <div class="whitebox"></div>
+    <div class="whitebox"></div>
+    <div class="whitebox"></div>
+
+    <script defer>
+            let imagBox = document.querySelector(".imageBox");
+            let whiteBoxes = document.getElementsByClassName("whitebox")
+            imagBox.addEventListener("dragstart",(e)=> {
+                    setTimeout( () => { // this for when draging item it should not display on that before existing part
+                        e.target.className = 'hide';
+                    },0)
+            });
+            imagBox.addEventListener("dragend",(e)=> e.target.className='imageBox') // here we are adding imagebox where it is ended
+
+            for( whitebox of whiteBoxes){
+                whitebox.addEventListener("dragover",function (e){ console.log("drag overed")
+                    e.preventDefault();
+                })
+                whitebox.addEventListener("dragenter", function (e) { e.target.classList.add("entered")   })
+                whitebox.addEventListener("dragleave", function (e) { e.target.classList.remove("entered")  })
+                whitebox.addEventListener("drop", function (e) { e.target.append(imagBox)  }) // where it is leaved in that we are adding imagebox
+            }
+
+    </script>
+    
+</body>
+</html>

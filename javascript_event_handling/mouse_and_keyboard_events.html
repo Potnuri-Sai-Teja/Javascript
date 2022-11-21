@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mouse and Keyboard Events Handling </title>
+    <style> .heighlight{
+                background: green;
+            }
+            li{
+                cursor: pointer;
+            }
+            .section1{
+                width:1000px;
+                height: 360px;
+                margin: 100px auto;
+                display: flex;
+                justify-content: space-between;
+                
+            }
+            .alignCenter{
+                    text-align: center;
+            }
+            .myContainer{
+
+                width: 200px;
+                height: 90%;
+                padding: 20px;
+                margin: 10px;
+                background: #fafafa;
+                box-sizing: border-box;
+
+            }
+            .pTagStyle{
+                background: red;
+                padding: 5px;
+                border-radius: 5px;
+                color: white;
+                font-weight: bold;
+            }
+            .makeAnchorToButton{
+                background-color: #828782;
+                color: rgb(19, 18, 18);
+                padding: 15px 25px;
+                text-decoration: none;
+            }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <button type="button"  onclick="alert('Mouse clicked')">Mouse Clicked</button>
+        <button type="button" id="btnRightClick">Right Click</button>
+        <button type="button" id="btnHover" onmouseover="alert('mouse Hovered')">Button Hover</button>
+        <button type="button" onmouseenter="alert('Mouse entered')">Mouse Enter</button>
+        <button type="button" onmouseleave="alert('Mouse leaved')">Mouse Leaved</button>
+        <button type="button" onmousedown="alert('Mouse is down')">Mouse Down</button>
+        <button type="butoon" onmouseup="alert('When clicked')">Mouse Up</button>
+        <button type="button" onmouseout="alert('Click released')">Mouse Out</button>
+        <button type="button" ondblclick="alert('Mouse Double Cliked')">Mouse Double Click</button><br/>
+        <a href="#keyBoardEventStarts" class="makeAnchorToButton">Goto Keyboard Events </a>
+        <button type="button" id="altctrlclick">ALT + CTRL + click</button>
+
+        <textarea  id="myarea" onmousemove="this.value=event.clientX+':'+event.clientY" placeholder="You Can find mouse X direction and Y direction coordinates" cols="30" rows="10"></textarea>
+       
+        
+    </div>
+    <div>
+        <!-- Event delegation  -->
+        <!-- It means if any actions performed on children need to be working -->
+        <ul id="list">
+            <li>Telugu</li>
+            <li>Hindi</li>
+            <li>English</li>
+            <li>Tamil</li>
+            <li>Odiya</li>
+        </ul>
+    </div>
+
+    <!-- Dispatch event and custom event examples -->
+
+        <div class="main">
+            <button type="button" id="myBtn">Custom Event</button>
+        </div>
+
+
+    <!-- Delegation example -->
+
+        <div>
+            <form action="#" id="myform">
+                    <div>
+                    <label for="name">First Name</label>
+                    <input type="text" id="name"/>
+                    </div>
+                    <div>
+                        <label for="name">Last Name</label>
+                        <input type="text" id="lname"/>
+                     </div>
+                        
+            </form>
+        </div>
+
+        <!-- list with mouse event -->
+        <div id="mouseEvent">
+
+            <ul id="statelist">
+                <li onmouseover="alert(event.relatedTarget.tagName) " style="width:110px;">Andhra Pradesh</li>
+                <li>Tamilnadu</li>
+                <li>Odisa</li>
+                <li>Gujarat</li>
+                <li>Karnataka</li>
+            </ul>
+
+        </div>
+
+        <!--  Drag and Drop With Mouse events -->
+        <h2 class="alignCenter">Drag And Drop Events</h2>
+        <div class="section1">
+            <div class="choise myContainer">
+                    <p class="pTagStyle myP"  draggable="true">POCO</p>
+                    <p class="pTagStyle myP"  draggable="true">Samsung</p>
+                    <p class="pTagStyle myP"  draggable="true">Oppo</p>
+                    <p class="pTagStyle myP"  draggable="true">RealMe</p>
+                    <p class="pTagStyle myP"  draggable="true">Iphone</p>
+            </div>
+            <div class="choise myContainer">
+               
+            </div>
+            <div class="choise myContainer">
+            
+            </div>
+            <div class="choise myContainer">
+                
+            </div>
+        </div>
+
+    <!--  Keyboard Events Started From here -->
+
+    <div id="keyBoardEventStarts">
+        <h2 style="text-align:center;" id="myheading">KeyBoard Events Started</h2>
+        <div>
+            <!-- difference between keydown and keypress is by using keydown we can use multiple keys to work but keyPress is single key press -->
+            <input type="text" style="width: 300px;height:20px" onkeydown="document.querySelector('#myheading').style.color=this.value" placeholder="Enter Color To Change The Color Heading"/> 
+            <input type="text" onkeyup="alert('On Key Up Event'+event.type)"/>
+            <input type="text" onkeypress="alert('on key press'+event.type)"/>
+            <input type="text" id="keyDownExample"/>
+            
+        </div>
+
+        <!-- check Phone keys only -->
+
+            <div>
+                <input type="tel" placeholder="phoneKeysOnly" onkeydown="return checkPhoneKey(event.key)" />
+            </div>
+
+    </div>
+
+    <!-- Scrolling event -->
+
+    <div>
+
+    </div>
+
+
+
+
+<script defer>
+
+    //Scrolling event
+
+        window.addEventListener("scroll",()=>{
+
+            let scrollable = document.documentElement.scrollHeight - window.innerHeight;
+            let scrolled =  window.scrollY;
+            if(Math.ceil(scrollable == scrolled))
+            {
+                alert("You Reached Bottom Of the Page")
+            }
+
+        })
+
+
+    // Phone Keys Only
+
+        // here includes function will check the key with listed keys there
+        function checkPhoneKey(key)
+        {
+            return (key >='0' && key <='9') || ['+','-','(',')'].includes(key)
+        }
+
+ // keyboard events
+
+    document.querySelector("#keyDownExample").addEventListener("keydown",function(event){
+
+            if(event.shiftKey && event.key === 'S')
+            {
+                alert("Shift + key");
+            }
+
+    })
+
+
+ // Drag and Drop example
+        var dragAndDropPTag = document.querySelectorAll(".myP");
+        var ListChoices = document.querySelectorAll(".choise");
+        var dragItem = null;
+     //   console.log(ListChoices);
+
+     dragAndDropPTag.forEach(element =>{
+
+            element.addEventListener("dragstart",function(){
+                    dragItem=this;
+                setTimeout(()=> this.style.display ="none",0)
+            })
+
+            // if gives style.display as none the item will be not visible and will not be added to any othe parts
+            // if gives style.display as block the draged item if placed in this part it will holds and displays the data
+            element.addEventListener("dragend",function(){
+                setTimeout(()=> this.style.display ="block",0)
+                dragItem=null
+            })
+  
+     })
+
+     ListChoices.forEach(element =>{
+
+            element.addEventListener('dragover',function(event){
+                 event.preventDefault()
+                 this.style.border = "2px dotted cyan";                
+            })
+            element.addEventListener('dragenter', function(event){ event.preventDefault()})
+            element.addEventListener('dragleave',function(){ this.style.border = "none"})
+            element.addEventListener('drop',function(){ this.append(dragItem)})
+
+     })
+
+
+
+ //  Drag and Drop example ended
+
+
+
+
+
+
+
+
+
+
+
+
+        let RightClick = document.querySelector("#btnRightClick");
+            RightClick.addEventListener("contextmenu",function(){
+                alert("Mouse is Right Clicked");
+            })
+
+        let hovered = document.querySelector("#btnHover");
+      //  hovered.removeEventListener("mouseover",function(){alert('mouse Hovered removed and removed only clicking');}) not Working
+
+
+    // Event delegation
+
+        let myList = document.getElementById("list");
+        myList.addEventListener("click",function(e){
+            console.log(e)
+            const target = e.target; // here we get its child nodes
+            if(target.matches("li")){
+                
+                target.classList.add("heighlight")
+
+            }
+            
+        })
+        // adding new elements 
+
+        let newLi = document.createElement("li")
+            newLi.innerHTML ="bengal"
+            myList.append(newLi);
+
+    // dispatching events and creating custom events
+
+    
+    // Now creating our Custom Event
+
+       // let myEvent1 = new Event('myclick');
+
+       let myEvent = new CustomEvent('myclick',{bubbles:true});
+
+
+        document.addEventListener("DOMContentLoaded",function(){
+
+            
+            let element1 = document.querySelector("#myBtn");
+
+        
+            element1.addEventListener('click', () => {
+                element1.dispatchEvent(myEvent);
+            })
+            element1.addEventListener('myclick',function(){
+                alert("Working with creating custome event and Dispatch event")
+            });
+            
+        })
+
+
+    // example of delegation when i am entering my data it should be capital always
+
+
+        document.querySelector("#myform").addEventListener('keyup',(event) =>{
+                if(event.target.id == "name"){
+                    if(event.target.value != undefined)
+                    {
+                        event.target.value = event.target.value.toUpperCase();
+                    }
+                }   
+        })
+
+    // more examples with mouse events
+
+        document.querySelector("#altctrlclick").addEventListener("click",(event) => {
+             //   console.log(event)
+                if(event.altKey && event.ctrlKey){
+                    alert("The button working with by pressing alt and ctrl and onclick")
+                }
+        })
+
+
+        // when moving mouse find its coordinates
+
+            document.querySelector("#statelist").addEventListener("click",(event) =>{
+                
+                    // step 1 if target.tag name not a li
+                    console.log(event)
+
+                        if(event.target.tagName != "LI") return;
+
+                        // step 2 if they selected all list by a ctrl
+                        if(event.ctrlKey)
+                        {
+                            event.target.classList.add("heighlight");
+                        }
+                        else{
+                            // we need to remove all selected before like a list and assign to 1 in the below statelist means that UL tag
+
+                            let selectedList = statelist.querySelectorAll(".heighlight");
+                                selectedList.forEach(element => {
+                                        element.classList.remove("heighlight");
+                                });
+                            event.target.classList.add("heighlight");
+
+
+                        }
+
+
+            })
+
+
+
+
+
+      
+          
+
+
+
+
+
+</script>
+</body>
+</html>
