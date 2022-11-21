@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image checking</title>
+</head>
+<body>
+
+
+    <script>
+        
+       
+
+
+            let ImagesArray=["poco-x3-3_2022723.jpeg","poco_X3_main_2022723","poco_X3_1_2022723.jpeg"];
+            let myDefaultImage="electronic_gadgets.jpeg"
+                
+            ImagesArray.forEach(element =>{
+                
+                let image = document.createElement('img');
+                
+                image.id="myImage";
+
+                image.src='s.kfjsdflskhlkls';
+                    
+
+                image.onerror = function() {
+                    if (image.dataset.fallbacked) return;
+                    image.dataset.fallbacked = true;
+                    image.src="electroni_gadgets.jpeg";
+                };
+
+        
+
+                document.body.append(image)
+
+            })
+
+    </script>
+
+</body>
+</html>
